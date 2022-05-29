@@ -1,0 +1,32 @@
+syntax = "proto3";
+
+package httpgateway;
+
+service HttpGateway {
+  rpc Produce (ProduceRequest) returns (ProduceResponse) {}
+}
+
+message ProduceRequest {
+    string topic = 1;
+    bool has_key = 2;
+    string key = 3;
+    repeated Record record = 5;
+    repeated RecordHeader headers = 6;
+}
+
+message Record {
+    string key = 1;
+    string value = 2;
+}
+
+message RecordHeader {
+    string key = 1;
+    string value = 2;
+}
+
+message ProduceResponse {
+    int32 partition = 1;
+    int64 offset = 2;
+    int64 errorcode = 3;
+    string error = 4;
+}
